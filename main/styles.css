@@ -1,0 +1,945 @@
+/* ============================================
+   GLOBAL STYLES & RESET
+   ============================================ */
+
+:root {
+    --primary-color: #ff4757;
+    --secondary-color: #e84118;
+    --accent-color: #ff6348;
+    --bg-light: #f8f9fb;
+    --bg-white: #ffffff;
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark-mode {
+    --bg-light: #1a1a1a;
+    --bg-white: #2d2d2d;
+    --text-primary: #e4e4e4;
+    --text-secondary: #b0b0b0;
+    --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 25px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-light);
+}
+
+/* ============================================
+   BACKGROUND GRADIENT
+   ============================================ */
+
+.background-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    z-index: -1;
+    transition: var(--transition);
+}
+
+body.dark-mode .background-gradient {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+/* ============================================
+   DARK MODE TOGGLE
+   ============================================ */
+
+.dark-mode-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 100;
+    background: var(--bg-white);
+    border: 2px solid var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.toggle-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+body.dark-mode .dark-mode-toggle {
+    background: var(--bg-white);
+    border-color: var(--accent-color);
+}
+
+body.dark-mode .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* ============================================
+   CONTAINER & LAYOUT
+   ============================================ */
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.header .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    min-height: 1.5rem;
+}
+
+#typing-text {
+    display: inline-block;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background-color: var(--primary-color);
+    margin-left: 0.2rem;
+    animation: blink 0.7s infinite;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   CARDS GRID LAYOUT
+   ============================================ */
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    flex: 1;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+/* ============================================
+   CARD STYLES
+   ============================================ */
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+}
+
+body.dark-mode .card {
+    background: rgba(45, 45, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition);
+}
+
+.card:hover::before {
+    transform: scaleX(1);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   ABOUT CARD
+   ============================================ */
+
+.about-card {
+    grid-column: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 2rem;
+}
+
+/* Scrollbar track (background) */
+.about-card::-webkit-scrollbar {
+  width: 8%; /* thickness */
+}
+
+/* Scrollbar track */
+.about-card::-webkit-scrollbar-track {
+  background: #f1f1f100;
+  border-radius: 6px;
+}
+
+/* Scrollbar thumb (the draggable part) */
+.about-card::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 6px;
+}
+
+/* Hover effect */
+.about-card::-webkit-scrollbar-thumb:hover {
+  background: #5e5e5e;
+}
+
+.profile-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    transition: var(--transition);
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+}
+
+.about-text {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    flex-grow: 1;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+.socials{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.fa-brands, .fa-solid {
+    font-size: 1.5rem;
+    color: white;
+    transition: var(--transition);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   PROJECTS CARD
+   ============================================ */
+
+.projects-card {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.8rem;
+    margin-right: -0.8rem;
+}
+
+.projects-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.projects-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.4);
+    border-radius: 4px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.6);
+}
+
+.project-item {
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.project-thumbnail {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(130deg, #ea6666 50%, #ffffff 100%);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.project-item:hover .project-thumbnail {
+    transform: scale(1.05) translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.project-item p {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ============================================
+   DESIGN CARD
+   ============================================ */
+
+.design-card {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.designs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.8rem;
+    margin-right: -0.8rem;
+}
+
+.designs-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.designs-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.designs-grid::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.4);
+    border-radius: 4px;
+}
+
+.designs-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.6);
+}
+
+.design-item {
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.design-thumbnail {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+}
+
+.design-thumbnail span {
+    font-size: 2rem;
+}
+
+.design-item:hover .design-thumbnail {
+    transform: scale(1.08) rotate(2deg);
+    box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   CERTIFICATES CARD
+   ============================================ */
+
+.certificates-card {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.8rem;
+    margin-right: -0.8rem;
+}
+
+.certificates-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.certificates-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.certificates-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 71, 87, 0.4);
+    border-radius: 4px;
+}
+
+.certificates-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 71, 87, 0.6);
+}
+
+.cert-item {
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cert-thumbnail {
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.1), rgba(232, 65, 24, 0.1));
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.cert-thumbnail span {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.cert-thumbnail p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.cert-thumbnail small {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.cert-item:hover .cert-thumbnail {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.15), rgba(232, 65, 24, 0.15));
+    border-color: var(--secondary-color);
+}
+
+.cert-template .cert-thumbnail {
+    background: linear-gradient(135deg, rgba(255, 107, 72, 0.2), rgba(255, 107, 72, 0.1));
+    border: 2px dashed var(--primary-color);
+}
+
+.cert-template .cert-thumbnail span {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+/* ============================================
+   EVENT PRODUCTION CARD
+   ============================================ */
+
+.event-card {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.8rem;
+    margin-right: -0.8rem;
+}
+
+.events-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.events-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.events-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 71, 87, 0.4);
+    border-radius: 4px;
+}
+
+.events-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 71, 87, 0.6);
+}
+
+.event-item {
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.event-thumbnail {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--border-radius-md);
+    object-fit: cover;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.event-item:hover .event-thumbnail {
+    transform: scale(1.08);
+    box-shadow: var(--shadow-md);
+}
+
+.event-item p {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.event-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.2), rgba(255, 107, 72, 0.1));
+    border: 2px dashed var(--primary-color);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.event-template .event-placeholder {
+    font-weight: 700;
+}
+
+.event-template:hover .event-placeholder {
+    background: linear-gradient(135deg, rgba(255, 71, 87, 0.3), rgba(255, 107, 72, 0.2));
+    transform: scale(1.05);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+/* ============================================
+   MODAL STYLES
+   ============================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: slideUp 0.3s ease-out;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+    transform: rotate(90deg);
+}
+
+#modal-body h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+#modal-body p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - TABLET
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .about-card {
+        grid-row: auto;
+        grid-column: auto;
+    }
+
+    .projects-card {
+        grid-row: auto;
+        grid-column: auto;
+    }
+
+    .design-card {
+        grid-row: auto;
+        grid-column: auto;
+    }
+
+    .event-card {
+        grid-row: auto;
+        grid-column: auto;
+    }
+
+    .certificates-card {
+        grid-row: auto;
+        grid-column: auto;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .designs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .certificates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .events-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - MOBILE
+   ============================================ */
+
+@media (max-width: 640px) {
+    html, body {
+        overflow-y: auto;
+    }
+
+    .container {
+        height: auto;
+        padding: 1rem;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .header .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+    }
+
+    .card h2 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .designs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .certificates-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .project-thumbnail {
+        height: 100px;
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .dark-mode-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+    }
+}
