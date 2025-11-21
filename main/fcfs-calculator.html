@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCFS Algorithm Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .input-section {
+            background: #f8f9fb;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .input-section h2 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #2d3748;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        input {
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-add {
+            background: green;
+            color: white;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-calculate {
+            background: blue;
+            color: white;
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn-reset {
+            background: #ff2424;
+            color: #2d3748;
+        }
+
+        .btn-reset:hover {
+            background: #ff8888;
+        }
+
+        .processes-list {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            margin-top: 15px;
+
+        }
+
+        .process-item {
+            display: grid;
+            grid-template-columns: 60px 80px 80px auto;
+            gap: 15px;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            align-items: center;
+            background: white;
+            transition: background 0.2s ease;
+        }
+
+        .process-item:hover {
+            background: #f7fafc;
+        }
+
+        .process-item:last-child {
+            border-bottom: none;
+        }
+
+        .process-item span {
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+
+        .btn-remove {
+            background: #ff000d;
+            color: white;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .btn-remove:hover {
+            background: #eb3b5a;
+        }
+
+        .results-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .results-section.active {
+            display: block;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            margin-top: 20px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #ff0000 0%, #303030 100%);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .gantt-chart {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fb;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .gantt-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            height: 200px;
+            overflow-x: auto;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-top: 15px;
+        }
+
+        .gantt-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .gantt-block {
+            width: 100%;
+            background: linear-gradient(135deg, #ff0000 0%, #303030 100%);
+            color: white;
+            padding: 10px 5px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .gantt-label {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .gantt-time {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ff0000 0%, #303030 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #c53030;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .info {
+            background: #bee3f8;
+            color: #2c5aa0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2c5aa0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .gantt-container {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> First Come First Served (FCFS) Scheduling Algorithm</h1>
+        <p class="subtitle">Calculate scheduling metrics for CPU process scheduling</p>
+
+        <div class="info">
+            Enter process information (minimum 3, maximum 10 processes) and click "Add Process" to add them to the queue.
+        </div>
+
+        <div class="input-section">
+            <h2>Process Input</h2>
+            
+            <div class="error" id="error-message"></div>
+
+            <div class="input-group">
+                <div class="form-group">
+                    <label for="process-name">Process Name</label>
+                    <input type="text" id="process-name" placeholder="e.g., P1" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="arrival-time">Arrival Time</label>
+                    <input type="number" id="arrival-time" placeholder="e.g., 0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="burst-time">Burst Time</label>
+                    <input type="number" id="burst-time" placeholder="e.g., 5" min="1">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-add" onclick="addProcess()">Add Process</button>
+                <button class="btn-calculate" onclick="calculateFCFS()">Calculate</button>
+                <button class="btn-reset" onclick="resetForm()">Reset</button>
+            </div>
+
+            <div class="processes-list" id="processes-list"></div>
+        </div>
+
+        <div class="results-section" id="results-section">
+            <h3>Scheduling Results</h3>
+
+            <div class="table-responsive">
+                <table id="results-table">
+                    <thead>
+                        <tr>
+                            <th>Process</th>
+                            <th>Arrival Time</th>
+                            <th>Burst Time</th>
+                            <th>Completion Time</th>
+                            <th>Turn Around Time</th>
+                            <th>Waiting Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-tbody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="gantt-chart">
+                <h3>Gantt Chart</h3>
+                <div class="gantt-container" id="gantt-container"></div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-label">Average Turn Around Time</div>
+                    <div class="stat-value" id="avg-tat">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Waiting Time</div>
+                    <div class="stat-value" id="avg-wt">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Completion Time</div>
+                    <div class="stat-value" id="total-ct">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let processes = [];
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 4000);
+        }
+
+        function addProcess() {
+            const nameInput = document.getElementById('process-name');
+            const arrivalInput = document.getElementById('arrival-time');
+            const burstInput = document.getElementById('burst-time');
+
+            const name = nameInput.value.trim();
+            const arrival = parseInt(arrivalInput.value);
+            const burst = parseInt(burstInput.value);
+
+            // Validation
+            if (!name) {
+                showError('❌ Please enter a process name');
+                return;
+            }
+
+            if (isNaN(arrival) || arrival < 0) {
+                showError('❌ Arrival time must be a non-negative number');
+                return;
+            }
+
+            if (isNaN(burst) || burst <= 0) {
+                showError('❌ Burst time must be a positive number');
+                return;
+            }
+
+            if (processes.length >= 10) {
+                showError('❌ Maximum 10 processes allowed');
+                return;
+            }
+
+            // Check for duplicate process name
+            if (processes.some(p => p.name === name)) {
+                showError('❌ Process name already exists');
+                return;
+            }
+
+            processes.push({
+                name,
+                arrival,
+                burst
+            });
+
+            // Clear inputs
+            nameInput.value = '';
+            arrivalInput.value = '';
+            burstInput.value = '';
+            nameInput.focus();
+
+            displayProcesses();
+        }
+
+        function removeProcess(index) {
+            processes.splice(index, 1);
+            displayProcesses();
+        }
+
+        function displayProcesses() {
+            const list = document.getElementById('processes-list');
+            
+            if (processes.length === 0) {
+                list.innerHTML = '<div style="padding: 20px; text-align: center; color: #718096;">No processes added yet</div>';
+                return;
+            }
+
+            list.innerHTML = processes.map((p, i) => `
+                <div class="process-item">
+                    <span><strong>${p.name}</strong></span>
+                    <span>AT: ${p.arrival}</span>
+                    <span>BT: ${p.burst}</span>
+                    <button class="btn-remove" onclick="removeProcess(${i})">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function calculateFCFS() {
+            if (processes.length < 3) {
+                showError('❌ Please enter at least 3 processes');
+                return;
+            }
+
+            // Sort by arrival time
+            const sortedProcesses = [...processes].sort((a, b) => a.arrival - b.arrival);
+
+            let results = [];
+            let currentTime = 0;
+
+            sortedProcesses.forEach((process, index) => {
+                // Start time is max of current time and arrival time
+                const startTime = Math.max(currentTime, process.arrival);
+                const completionTime = startTime + process.burst;
+                const turnAroundTime = completionTime - process.arrival;
+                const waitingTime = turnAroundTime - process.burst;
+
+                results.push({
+                    name: process.name,
+                    arrival: process.arrival,
+                    burst: process.burst,
+                    startTime,
+                    completionTime,
+                    turnAroundTime,
+                    waitingTime
+                });
+
+                currentTime = completionTime;
+            });
+
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const tbody = document.getElementById('results-tbody');
+            let html = '';
+
+            results.forEach(r => {
+                html += `
+                    <tr>
+                        <td><strong>${r.name}</strong></td>
+                        <td>${r.arrival}</td>
+                        <td>${r.burst}</td>
+                        <td>${r.completionTime}</td>
+                        <td>${r.turnAroundTime}</td>
+                        <td>${r.waitingTime}</td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+
+            // Display Gantt Chart
+            displayGanttChart(results);
+
+            // Calculate and display statistics
+            const avgTAT = (results.reduce((sum, r) => sum + r.turnAroundTime, 0) / results.length).toFixed(2);
+            const avgWT = (results.reduce((sum, r) => sum + r.waitingTime, 0) / results.length).toFixed(2);
+            const totalCT = Math.max(...results.map(r => r.completionTime));
+
+            document.getElementById('avg-tat').textContent = avgTAT;
+            document.getElementById('avg-wt').textContent = avgWT;
+            document.getElementById('total-ct').textContent = totalCT;
+
+            // Show results section
+            document.getElementById('results-section').classList.add('active');
+        }
+
+        function displayGanttChart(results) {
+            const container = document.getElementById('gantt-container');
+            let html = '';
+
+            results.forEach(r => {
+                html += `
+                    <div class="gantt-bar">
+                        <div class="gantt-block">${r.name}</div>
+                        <div class="gantt-time">${r.startTime}-${r.completionTime}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function resetForm() {
+            processes = [];
+            document.getElementById('process-name').value = '';
+            document.getElementById('arrival-time').value = '';
+            document.getElementById('burst-time').value = '';
+            document.getElementById('results-section').classList.remove('active');
+            displayProcesses();
+            document.getElementById('process-name').focus();
+        }
+
+        // Allow Enter key to add process
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const activeId = document.activeElement.id;
+                if (['process-name', 'arrival-time', 'burst-time'].includes(activeId)) {
+                    addProcess();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

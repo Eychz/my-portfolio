@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harold Catipay - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="my-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Background gradient -->
+    <div class="background-gradient"></div>
+
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <span class="toggle-icon">🌙</span>
+    </button>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Harold Catipay</h1>
+            <p class="subtitle"><span id="typing-text">BSIT Student</span><span class="cursor">|</span></p>
+        </header>
+
+        <!-- Cards Grid -->
+        <main class="cards-grid">
+            <!-- About Me Card -->
+            <card class="card about-card">
+                <div class="card-content">
+                    <h2>About Me</h2>
+                    <div class="profile-section">
+                        <img src="my-profile.jpg" alt="Harold Catipay" class="profile-pic">
+                    </div>
+
+
+                    <div class="socials">
+                        <a href="https://www.facebook.com/letter.eych" target="_blank">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+
+                        <a href="https://github.com/Eychz" target="_blank">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+
+                        <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWtMgCMzZpvRndFGlCQsMJmrfdXzfWqlLqhLGFfzSVTVVqNDvTmNtlxjzxJxjVBVhZJqpshFb" target="_blank">
+                          <i class="fa-solid fa-envelope"></i>
+                        </a>
+                    </div>
+
+
+                    <p class="about-text">
+                        I'm a passionate BSIT student with a keen interest in web design and development.
+                        I love creating beautiful, user-centered digital experiences that solve real problems.
+                        With a blend of technical skills and creative vision, I strive to build websites that are
+                        not only functional but also visually stunning.
+                    </p>
+                    <div class="button-container">
+                        <button class="btn btn-primary" onclick="downloadResume()">
+                            📥 Download Resume
+                        </button>
+                    </div>
+                </div>
+            </card>
+
+            <!-- School Projects Card -->
+            <card class="card projects-card">
+                <div class="card-content">
+                    <h2>School Projects</h2>
+                    <div class="projects-grid">
+
+                        <div class="project-item" onclick="openFCFSCalculator()">
+                            <div class="project-thumbnail">
+                                <span>FCFS Calculator</span>
+                            </div>
+                            <p>FCFS Scheduling Algorithm</p>
+                        </div>
+
+                        <div class="project-item" onclick="openEcommerce()">
+                            <div class="project-thumbnail">
+                                <span>E-commerce</span>
+                            </div>
+                            <p>Mini E-commerce</p>
+                        </div>
+                    </div>
+                </div>
+            </card>
+
+            <!-- Graphics Design Card -->
+            <card class="card design-card">
+                <div class="card-content">
+                    <h2>Graphics Design</h2>
+                    <div class="designs-grid">
+
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 1', 'Buagsong Bakasi Official Jersey for Cordova Mayors Cup 2025', 'mockup1.png')">
+
+                            <img src="mockup1.png" alt="Mockup 1" class="design-thumbnail">
+                        </div>
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 2', 'Avionics Official Uniform of S.Y. 2025-2026', 'mockup2.jpg')">
+
+                            <img src="mockup2.jpg" alt="Mockup 2" class="design-thumbnail">
+                        </div>
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 3', 'Cordova Public College Banag-Banag Official Uniform S.Y. 2025-2026', 'mockup3.png')">
+
+                            <img src="mockup3.png" alt="Mockup 3" class="design-thumbnail">
+                        </div>
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 4', 'Cordova Public College SSG Official Uniform S.Y. 2024-2025', 'mockup4.jpg')">
+
+                            <img src="mockup4.jpg" alt="Mockup 4" class="design-thumbnail">
+                        </div>
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 5', 'BSITxCDC Cordova Public College Intramurals MLBB Tournament Official Jersey 2025', 'mockup5.png')">
+
+                            <img src="mockup5.png" alt="Mockup 5" class="design-thumbnail">
+                        </div>
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 6', 'Buagsong Bakasi Official MLBB Cordova Mayors Cup Jersey 2023', 'mockup6.png')">
+
+                            <img src="mockup6.png" alt="Mockup 6" class="design-thumbnail">
+                        </div>
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 7', 'BSIT x Iconic Magnetism | Cordova Public College Intramurals MLBB Tournament Official Jersey 2024', 'mockup7.png')">
+                            <img src="mockup7.png" alt="Mockup 7" class="design-thumbnail">
+
+                        </div>
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 8', 'BSHM x Lumine Vortex | Cordova Public College Intramurals MLBB Tournament Official Jersey 2024', 'mockup8.png')">
+                            <img src="mockup8.png" alt="Mockup 8" class="design-thumbnail">
+
+
+                        </div>
+
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 9', 'BSIT Predator | Cordova Public College Intramurals Official Jersey 2025', 'mockup9.png')">
+                            <img src="mockup9.png" alt="Mockup 8" class="design-thumbnail">
+
+
+                        </div>
+
+                        <div class="design-item"
+                            onclick="openModal('design', 'Mockup 10', 'BSHM Royal Jesters Cordova Public College MLBB Intramurals Tournament 2025', 'mockup10.png')">
+                            <img src="mockup10.png" alt="Mockup 8" class="design-thumbnail">
+
+
+                        </div>
+                    </div>
+                </div>
+            </card>
+
+            <!-- Event Production Card -->
+            <card class="card event-card">
+                <div class="card-content">
+                    <h2>Event Production</h2>
+                    <div class="events-grid">
+                        <div class="event-item"
+                            onclick="window.open('https://www.facebook.com/share/v/14S9W28rqfp/', '_blank')">
+                            <img src="event-prod.jpg" alt="Event Production" class="event-thumbnail">
+                            <p>MLBB Gabi Tournament</p>
+                        </div>
+
+                        <div class="event-item event-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="event-placeholder">
+                                <span>+</span>
+                            </div>
+                            <p>No content available</p>
+                        </div>
+
+                        <div class="event-item event-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="event-placeholder">
+                                <span>+</span>
+                            </div>
+                            <p>No content available</p>
+                        </div>
+
+                        <div class="event-item event-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="event-placeholder">
+                                <span>+</span>
+                            </div>
+                            <p>No content available</p>
+                        </div>
+
+                        <div class="event-item event-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="event-placeholder">
+                                <span>+</span>
+                            </div>
+                            <p>No content available</p>
+                        </div>
+                    </div>
+                </div>
+            </card>
+
+            <!-- Certificates Card -->
+            <card class="card certificates-card">
+                <div class="card-content">
+                    <h2>Certificates</h2>
+                    <div class="certificates-grid">
+
+                        <div class="cert-item cert-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="cert-thumbnail">
+                                <span>+</span>
+                            </div>
+                            <!-- <p>No content available</p> -->
+                        </div>
+
+                        <div class="cert-item cert-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="cert-thumbnail">
+                                <span>+</span>
+                            </div>
+                            <!-- <p>No content available</p> -->
+                        </div>
+
+                        <div class="cert-item cert-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="cert-thumbnail">
+                                <span>+</span>
+                            </div>
+                            <!-- <p>No content available</p> -->
+                        </div>
+
+                        <div class="cert-item cert-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="cert-thumbnail">
+                                <span>+</span>
+                            </div>
+                            <!-- <p>No content available</p> -->
+                        </div>
+
+                        <div class="cert-item cert-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="cert-thumbnail">
+                                <span>+</span>
+                            </div>
+                            <!-- <p>No content available</p> -->
+                        </div>
+
+                        <div class="cert-item cert-template"
+                            onclick="openModal('No content available', 'No content available', 'No content available')">
+                            <div class="cert-thumbnail">
+                                <span>+</span>
+                            </div>
+                            <!-- <p>No content available</p> -->
+                        </div>
+                    </div>
+                </div>
+            </card>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Harold Catipay. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
