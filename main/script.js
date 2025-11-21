@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function downloadResume() {
     const link = document.createElement('a');
-    link.href = 'Resume.Catpay.pdf';
-    link.download = 'Resume.Catpay.pdf';
+    link.href = 'resume.pdf';
+    link.download = 'resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -216,3 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(card);
     });
 });
+
